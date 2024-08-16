@@ -27,23 +27,6 @@ class DenmPublisher(Node):
         #denm_msg.s = ros_denm_msg.
 
         self.denm_publisher_.publish(denm_msg)
-'''
-    def Mapped_data (self):
-        denm_msg = MapObject()
-        denm_msg.position.latitude = 12
-        denm_msg.position.longitude = 23
-        denm_msg.type = "test_1"
-        denm_msg.source = "test_2"
-        denm_msg.source_id = 34
-        denm_msg.id = "test_3"
-
-        self.denm_publisher_.publish(denm_msg)
-
-
-    def timer_callback(self):
-        self.get_logger().info("Hello" + str(self.counter_))
-        self.counter_ += 1
-'''
 
 def main(args=None):
     
