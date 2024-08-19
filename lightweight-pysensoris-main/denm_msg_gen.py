@@ -53,8 +53,8 @@ class DENMMsgGenerator(Node):
             ros_denm_msg.its_header.message_id = 7
             ros_denm_msg.its_header.station_id = 8
 
-            ros_denm_msg.management.event_position.latitude = 2200
-            ros_denm_msg.management.event_position.longitude = 1100
+            ros_denm_msg.management.event_position.latitude = 4876583684
+            ros_denm_msg.management.event_position.longitude = 1143491782
 
             ros_denm_msg.has_situation = True
             ros_denm_msg.situation.has_linked_cause = True
