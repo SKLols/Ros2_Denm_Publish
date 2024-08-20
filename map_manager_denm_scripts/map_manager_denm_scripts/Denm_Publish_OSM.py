@@ -7,7 +7,6 @@ from ros_etsi_its_msgs.msg import DENM
 from sensor_msgs.msg import NavSatFix
 import math
 from math import *
-from v2xvf_interfaces.msg import *
 
 
 
@@ -270,17 +269,16 @@ class DenmPublisher(Node):
         super().__init__('denm_node')
         self.denm_subscriber_= self.create_subscription(DENM, "/dummy_denm", self.denm_data, 10)
         self.denm_publisher_= self.create_publisher (MapObject, "/map_manager", 1000)
-        #self.counter_= 0
-        #self.timer=self.create_timer(0.5, self.Mapped_data)
         self.get_logger().info("Dummy Node for DENM_Publish")
     
     def denm_data (self, ros_denm_msg : DENM):
         denm_msg = MapObject()
+
+        #Accessing Denm Variables
         Header = ros_denm_msg.header
         Stamp = Header.stamp
         Frame_ID = Header.frame_id
         
-
         Its_Pdu_Header = ros_denm_msg.its_header
         Protocol_Version = Its_Pdu_Header.protocol_version
         Message_ID = Its_Pdu_Header.message_id
@@ -299,6 +297,8 @@ class DenmPublisher(Node):
 
         Location_Container = ros_denm_msg.location
 
+
+        #Converting Latitude and longitude only if they are not in lat and long
         #converted_obj_pose = xy2ll(x=Position_X, y=Position_Y, 
         #                        orglat=location_pos.latitude, orglon=location_pos.longitude)
         #print(converted_obj_pose)
@@ -306,11 +306,12 @@ class DenmPublisher(Node):
 
 
 
-        #Match GPS point to Mobileye reference point
-        THIPointLat = Object_Lat * 10000000   #Convert micro to degree
-        THIPointLon = Object_Lon * 10000000
+        #Match GPS point to Mobileye reference point i.e convert from 48.1234567 to 481234567
+        #THIPointLat = Object_Lat * 10000000   #Convert micro to degree
+        #THIPointLon = Object_Lon * 10000000
 
 
+        #Publishing the above data in Map Object format 
         denm_msg.position.latitude = Object_Lat
         denm_msg.position.longitude = Object_Lon
         denm_msg.type = "Level0"
@@ -318,8 +319,8 @@ class DenmPublisher(Node):
         denm_msg.source_id = ros_denm_msg.situation.linked_cause.cause_code
         denm_msg.id = "Test2"
         denm_msg.expiration_time = 1.3
-        #denm_msg.s = ros_denm_msg.
 
+        #Publishing on map
         self.denm_publisher_.publish(denm_msg)
 
 def main(args=None):
