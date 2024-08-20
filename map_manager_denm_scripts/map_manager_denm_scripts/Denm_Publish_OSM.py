@@ -268,7 +268,7 @@ class DenmPublisher(Node):
     def __init__(self):
         #calling constructor of the node class
         super().__init__('denm_node')
-        self.denm_subscriber_= self.create_subscription(DENM, "/dummy_DENM", self.denm_data, 10)
+        self.denm_subscriber_= self.create_subscription(DENM, "/dummy_denm", self.denm_data, 10)
         self.denm_publisher_= self.create_publisher (MapObject, "/map_manager", 1000)
         #self.counter_= 0
         #self.timer=self.create_timer(0.5, self.Mapped_data)
@@ -307,16 +307,16 @@ class DenmPublisher(Node):
 
 
         #Match GPS point to Mobileye reference point
-        THIPointLat = Object_Lat / 10000000.0   #Convert micro to degree
-        THIPointLon = Object_Lon / 10000000.0
+        THIPointLat = Object_Lat * 10000000   #Convert micro to degree
+        THIPointLon = Object_Lon * 10000000
 
 
-        denm_msg.position.latitude = ros_denm_msg.management.event_position.latitude
-        denm_msg.position.longitude = ros_denm_msg.management.event_position.longitude
+        denm_msg.position.latitude = Object_Lat
+        denm_msg.position.longitude = Object_Lon
         denm_msg.type = "Level0"
-        denm_msg.source = "Level0"
+        denm_msg.source = "Test1"
         denm_msg.source_id = ros_denm_msg.situation.linked_cause.cause_code
-        denm_msg.id = "Level2"
+        denm_msg.id = "Test2"
         denm_msg.expiration_time = 1.3
         #denm_msg.s = ros_denm_msg.
 

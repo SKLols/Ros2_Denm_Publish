@@ -25,7 +25,7 @@ python3 main_mqtt_sub.py -ip 192.168.199.80 -pt 1883 -tn mast_21/fused_tracked_o
 
 python3 main_mqtt_sub.py -ip 192.168.199.80 -pt 1883 -tn mast_22/fused_tracked_objects -nn sensoris_listener_22 -mt sensoris_5GoIng/mqtt/mast_22/fused_tracked_objects &
 
-python3 main_mqtt_sub.py -ip 192.168.199.80 -pt 1883 -tn dummy_DENM -nn dummy_DENM_node -mt sensoris_5GoIng/mqtt/mast_22/fused_tracked_objects &
+python3 main_mqtt_sub.py -ip 192.168.199.80 -pt 1883 -tn dummy_denm -nn dummy_denm_node -mt sensoris_5GoIng/mqtt/mast_22/fused_tracked_objects &
 
 
 
